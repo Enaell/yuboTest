@@ -10,11 +10,8 @@ import translate from 'counterpart';
 import { UserType } from '../common/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row } from '../common/Flexbox';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 
-type NavbarType = {
-  history: any
-}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -36,33 +33,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export const Navbar = withRouter(({
-  history
-}: NavbarType) => {
+export const Navbar = () => {
 
   const handleSideMenuClick = () => {}
 
   const user = useSelector((state: any) => state.user) as UserType;
-  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const history = useHistory()
 
   const handleOnMainPageRedirectionClick = () => {
     history.push('/');
   }
 
-  const openLoginModal = () => {
-    dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 2})
-    dispatch({type: 'TOGGLE_LOGIN_MODAL'})
-  }
-
-  const openSigninModal = () => {
-    dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 1})
-    dispatch({type: 'TOGGLE_LOGIN_MODAL'})
-  }
-
    return(
     <div className={classes.root}>
-      <AppBar elevation={0} position='fixed' color={'transparent'}>
+      <AppBar elevation={0} position='fixed' color={'primary'}>
         <Toolbar>
           <Row width='100%' vertical='center' horizontal='space-between'>
             <Row  className={classes.grow}>
@@ -84,5 +70,5 @@ export const Navbar = withRouter(({
       <NavSnackBar></NavSnackBar>
     </div>
   );
-})
+}
 

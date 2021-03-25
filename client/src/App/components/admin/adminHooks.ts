@@ -4,16 +4,17 @@ import { userApi } from "../../apiClient/ApiClient";
 import { UserType } from "../common/types";
 
 
-export function useAdmin() {
+export function useUsers() {
   const [users, setUsers] = useState([] as UserType[]);
 
-  const user = useSelector((state: any) => state.user as UserType)
+  const admin = useSelector((state: any) => state.user as UserType)
   
   useEffect(() => {
-    userApi.getAllUsers(user?.token).then(us => {
-      console.log(us)
+    userApi.getAllUsers(admin?.token).then(us => {
+      console.log(us);
+      setUsers(us);
     });
-  }, [user]);
+  }, []);
 
 
 

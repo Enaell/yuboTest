@@ -1,16 +1,19 @@
 import { Button, Card } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
-import { useAdmin } from './adminHooks';
-
-
+import { UserType } from '../common/types';
+import {UserTable} from './UserTable';
 
 export const AdminPanel = ({...props}) => {
   
-  const {users, updateUser} = useAdmin();
+  const [selectedUser, setSelectedUser] = useState({} as UserType)
+  const getUserSelected = (user: UserType)=> console.log( user)
 
+
+  
   return (
-    <Column height='100vh' width='100%' horizontal='center' vertical='space-around'>
-    </Column>
+    <Row style={{paddingTop: '90px'}} height='calc(100vh - 120px)' width='800px' horizontal='center' vertical='center'>
+      <UserTable getUserSelected={getUserSelected} />
+    </Row>
   )
 }

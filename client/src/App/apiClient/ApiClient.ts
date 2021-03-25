@@ -18,7 +18,7 @@ export const userApi = {
     const json = await res.json();
     return json as UserType[]
   },
-  updateGift: async (user: UserType, token?: string) => {
+  updateUser: async (user: UserType, token?: string) => {
     console.log('api client gift update gift');
     console.log(user);
     try {
