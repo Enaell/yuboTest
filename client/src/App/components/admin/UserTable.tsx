@@ -161,15 +161,16 @@ const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 // ---
 
 type UserTableProps = {
-  getUserSelected: (user: UserType) => void
+  getUserSelected: (user: UserType) => void;
+  filter: string;
 }
 
-export const UserTable = ({getUserSelected}: UserTableProps) => {
+export const UserTable = ({getUserSelected, filter}: UserTableProps) => {
 
-  const {users} = useUsers(); 
-
+  const {users, updateFilter} = useUsers(); 
+  useEffect (()=> updateFilter(filter), [filter]);
   return (
-    <Paper style={{ height:' 100%', width: '100%', }}>
+    <Paper style={{ height:' 100%', width: '100%', maxWidth: '800px'}}>
       <VirtualizedTable
         onRowClick={({event, index, rowData} : {event: Event, index: number, rowData: any})=>{getUserSelected(rowData) }}
         rowCount={users.length}
