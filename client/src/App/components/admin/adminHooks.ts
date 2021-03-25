@@ -4,10 +4,12 @@ import { userApi } from "../../apiClient/ApiClient";
 import { UserType } from "../common/types";
 
 
-export function useUsers() {
+export function useUserList() {
   const [users, setUsers] = useState([] as UserType[]);
 
   const [filteredUsers, setFilteredUsers] = useState([] as UserType[])
+
+  const [filter, setFilter] = useState('');
 
   const admin = useSelector((state: any) => state.user as UserType)
   
@@ -30,6 +32,9 @@ export function useUsers() {
     }))
   }
 
+  useEffect(()=> {
+    updateFilter(filter)
+  }, [filter])
 
   async function updateUser(updatedUser: UserType) {
     
@@ -43,5 +48,14 @@ export function useUsers() {
   }
 
 
-  return {users: filteredUsers, updateFilter, updateUser};
+  return {users: filteredUsers, filter, setFilter, updateUser};
+}
+
+export function useUserSelected() {
+
+  const [userSelected, setUserSelected] = useState(undefined as UserType | undefined);
+
+  
+
+  return {userSelected, setUserSelected}
 }

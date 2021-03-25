@@ -57,7 +57,7 @@ export const PageDescription = ({ descriptions } : { descriptions: string[] }) =
   )
 }
 
-export const Filter = ({ filter, setFilter, horizontal='flex-end', label=translate('dictionaryPage.filter') }: { filter: string, setFilter: (s : string) => void, horizontal?: any, label?: string}) => {
+export const Filter = ({ filter, setFilter, horizontal='flex-end', label=translate('filter') }: { filter: string, setFilter: (s : string) => void, horizontal?: any, label?: string}) => {
   return (
     <div style={{...styles.filter, justifyContent: horizontal}}>
       <p style={styles.filterTitle}>{label}</p>
@@ -72,11 +72,12 @@ export const Filter = ({ filter, setFilter, horizontal='flex-end', label=transla
 }
 
 export const DualSwitch =  ({
+    check = false,
     values, 
     changeSelectedValue
-  }: { values: string[], changeSelectedValue: (s : string) => void }) => {
+  }: { check?: boolean, values: string[], changeSelectedValue: (s : string) => void }) => {
 
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(check);
 
   const handleChange = (event : any) => {
     setChecked( event.target.checked );

@@ -2,8 +2,11 @@
   "application-name": "Moderation Yubo",
   "connection":{
     "login": "Login",
-    "username": "Name",
+    "username": "Username",
+    "name": "Name",
     "password": "Password",
+    "city": "City",
+    "country": "Country",
     "email": "Email",
     "or": "Ou*",
     "usernameError": "Please enter your name",
@@ -13,5 +16,6 @@
     "title": "Yubo Moderation!",
     "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
     "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"
-  }
+  },
+  "filter": "Filter - Search"
 }

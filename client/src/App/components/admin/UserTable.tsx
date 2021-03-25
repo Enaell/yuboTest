@@ -5,7 +5,6 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import { AutoSizer, Column, Table, TableCellRenderer, TableHeaderProps } from 'react-virtualized';
 import { UserType } from '../common/types';
-import { useUsers } from './adminHooks';
 
 declare module '@material-ui/core/styles/withStyles' {
   // Augment the BaseCSSProperties so that we can control jss-rtl
@@ -161,14 +160,12 @@ const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 // ---
 
 type UserTableProps = {
+  users: UserType[];
   getUserSelected: (user: UserType) => void;
-  filter: string;
 }
 
-export const UserTable = ({getUserSelected, filter}: UserTableProps) => {
+export const UserTable = ({users, getUserSelected}: UserTableProps) => {
 
-  const {users, updateFilter} = useUsers(); 
-  useEffect (()=> updateFilter(filter), [filter]);
   return (
     <Paper style={{ height:' 100%', width: '100%', maxWidth: '800px'}}>
       <VirtualizedTable
