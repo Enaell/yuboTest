@@ -23,37 +23,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'yubo', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
-// require('./models/users');
-// require('./models/gifts');
 // require('./config/passport');
 
-// const db = new sqlite3.Database('./db/db.sqlite');
 
 var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
-// const wordRouter = require('./routes/words');
-//app.use(require('./routes'));
 
-// app.get('/api/users', async function (req, res) {
-//   db.all('SELECT * FROM users', function (err, rows) {
-//     var output = []
-//     if (err) {
-//       console.log(err)
-//     } else {
-//       console.log('pass here')
-//       if (rows.length === 0) {
-//         res.send('Empty database')
-//       } else {
-//         console.log('rows : ')
-//         console.log(rows)
-//         rows.forEach(function (row) {
-//           output.push(row);
-//         })
-//         res.json(output)
-//       }
-//     }
-//   })})
-
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
