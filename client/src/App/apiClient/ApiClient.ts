@@ -94,8 +94,26 @@ export const userApi = {
       method:"GET"
     })
     const json = await res.json();
-    console.log('------------------------------')
-    console.log(json);
+    return json as any;
+  },
+
+  deleteMedia: async (id?: number, mediaId?: number, token?: string) => {
+    if (!id || !mediaId)
+      return
+    const getUserUrl = `http://localhost:5000/api/users/${id}/medias/:${mediaId}`
+    const res = await fetch(getUserUrl,
+    {
+      headers: token ? {
+      'Authorization': `Token ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    } : {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+      method:"DELETE"
+    })
+    const json = await res.json();
     return json as any;
   },
 

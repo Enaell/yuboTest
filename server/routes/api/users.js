@@ -112,11 +112,31 @@ router.patch('/:id/availability', async (req, res, next) => {
     } 
   })
 
+});
 
-  //  const stmt = db.prepare(`UPDATE users SET isDeleted = 1 WHERE id = ${userId}`); 
-  //  const updates = stmt.run({isDeleted: isDeleted.isDeleted ? 1 : 0}, {id: userId});
-  //  stmt.finalize();
+router.delete('/:id/medias/:messageid', async (req, res, next) => {
+  const { payload, body: isDeleted} = req;
 
+  const messageId = req.params.messageid;
+
+  db.all(`DELETE FROM media WHERE id=${messageId}`, function (err, rows) {
+    var output = []
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('pass here')
+      if (rows.length === 0) {
+        res.send('Empty database')
+      } else {
+        console.log('rows : ')
+        console.log(rows)
+        rows.forEach(function (row) {
+          output.push(row);
+        })
+        res.json(output)
+      }
+    } 
+  })
 });
 
 

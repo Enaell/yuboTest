@@ -1,4 +1,4 @@
-import { AppBar, Card, CardMedia, Tab, Tabs, TextField, Typography } from '@material-ui/core';
+import { AppBar, Button, Card, CardMedia, Tab, Tabs, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
 import { MediaType, MessageType, UserType } from '../common/types';
@@ -41,10 +41,11 @@ type UserCardProps = {
   userMessages?: MessageType[]
   receivedMessages?: MessageType[];
   medias?: MediaType[];
-  updateUser: (updateUser: UserType) => void
+  updateUser: (updateUser: UserType) => void;
+  deleteMedia: (mediaId: number) => void;
 }
 
-export const UserCard = ({user, userMessages, receivedMessages, medias, updateUser}: UserCardProps) => {
+export const UserCard = ({user, userMessages, receivedMessages, medias, updateUser, deleteMedia}: UserCardProps) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -142,7 +143,12 @@ export const UserCard = ({user, userMessages, receivedMessages, medias, updateUs
           </TabPanel>
           <TabPanel value={value} index={2}> 
             <Row width='100%' horizontal='space-around'>
-              {medias?.map(media=>(<CardMedia style={{marginTop: '20px', paddingTop: '150px', width: '150px' }} image={media.url}/>))}
+              {medias?.map(media=>(
+                <>
+                  <Button onClick={()=> deleteMedia(media.id)}>Delete</Button>
+                  <CardMedia style={{marginTop: '20px', paddingTop: '150px', width: '150px' }} image={media.url}/>
+                </>
+              ))}
             </Row>
           </TabPanel>
         </Column>

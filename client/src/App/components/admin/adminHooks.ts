@@ -15,8 +15,12 @@ export function useUserList() {
   
   useEffect(() => {
     userApi.getAllUsers(admin?.token).then(us => {
-      console.log(us);
       setUsers(us);
+    });
+  }, [])
+
+  useEffect(() => {
+    userApi.getAllUsers(admin?.token).then(us => {
       updateFilter(filter);
     });
   }, [users]);
@@ -66,5 +70,10 @@ export function useUserSelected() {
     userApi.getAllMedia(userSelected?.id).then(m=>setMedias(m))
   }, [userSelected])
 
-  return {userSelected, setUserSelected, userMessages, receivedMessages, medias}
+  function deleteMedia(mediaId: number) {
+    userApi.deleteMedia(userSelected?.id, mediaId);
+    setMedias(medias?.filter(media => media.id !== mediaId));
+  }
+
+  return {userSelected, setUserSelected, userMessages, receivedMessages, medias, deleteMedia}
 }
