@@ -8,7 +8,7 @@ import {UserTable} from './UserTable';
 
 export const AdminPanel = ({...props}) => {
     
-  const {users, filter, setFilter} = useUserList(); 
+  const {users, filter, setFilter, updateUser} = useUserList(); 
   const {userSelected, userMessages, receivedMessages, medias, setUserSelected} = useUserSelected();
   
   return (
@@ -16,7 +16,7 @@ export const AdminPanel = ({...props}) => {
       <UserTable users={users} getUserSelected={setUserSelected} />
       <Column width='40%'>
         <Filter filter={filter} setFilter={setFilter}/>
-        <UserCard user={userSelected} receivedMessages={receivedMessages} userMessages={userMessages} medias={medias}/>
+        <UserCard user={userSelected} receivedMessages={receivedMessages} userMessages={userMessages} medias={medias} updateUser={updateUser}/>
       </Column>
     </Row>
   )

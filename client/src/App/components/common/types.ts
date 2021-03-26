@@ -5,7 +5,7 @@ export type UserType = {
     country?: string,
     username: string,
     name?: string,
-    isDeleted?: boolean
+    isDeleted?: number
 }
 
 export type MessageType = {

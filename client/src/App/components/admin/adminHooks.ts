@@ -17,9 +17,9 @@ export function useUserList() {
     userApi.getAllUsers(admin?.token).then(us => {
       console.log(us);
       setUsers(us);
-      setFilteredUsers(us);
+      updateFilter(filter);
     });
-  }, []);
+  }, [users]);
 
   function updateFilter(f: string) {
     setFilteredUsers(users.filter(user => {
@@ -32,21 +32,21 @@ export function useUserList() {
     }))
   }
 
+  async function updateUser(userUpdated:UserType) {
+    
+    // console.log(userUpdated)
+    // const newUsers = users.map(user => user.id === userUpdated.id ? userUpdated: user);
+    // setUsers(newUsers)
+    
+    const us =  await userApi.getAllUsers(admin?.token)
+    console.log(us);
+    setUsers(us);
+    updateFilter(filter);
+  }
+
   useEffect(()=> {
     updateFilter(filter)
   }, [filter])
-
-  async function updateUser(updatedUser: UserType) {
-    
-    // if (updatedUser.name){
-    //   const newUsers = usersByPerson[user.username].map(user => user.id === updatedUser.id ? updatedUser: user);
-    
-    // setUsersByPerson({...usersByPerson, [user.username]: newUsers})
-    // if (user.token)
-    //   await userApi.updateUser(updatedUser, user.token);
-    // }
-  }
-
 
   return {users: filteredUsers, filter, setFilter, updateUser};
 }

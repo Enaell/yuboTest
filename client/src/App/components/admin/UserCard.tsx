@@ -41,9 +41,10 @@ type UserCardProps = {
   userMessages?: MessageType[]
   receivedMessages?: MessageType[];
   medias?: MediaType[];
+  updateUser: (updateUser: UserType) => void
 }
 
-export const UserCard = ({user, userMessages, receivedMessages, medias}: UserCardProps) => {
+export const UserCard = ({user, userMessages, receivedMessages, medias, updateUser}: UserCardProps) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -70,8 +71,10 @@ export const UserCard = ({user, userMessages, receivedMessages, medias}: UserCar
             values={['disable', 'able']} 
             changeSelectedValue={(s: string )=> {
                 console.log(s)
-                if (user)
-                  {userApi.updateUserAvaliability(user)}
+                if (user) {
+                  userApi.updateUserAvaliability(user);
+                  updateUser({...user, isDeleted: !user.isDeleted ? 1 : 0})
+                }
             }
             }/>
         </Row>
@@ -128,7 +131,7 @@ export const UserCard = ({user, userMessages, receivedMessages, medias}: UserCar
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-            {userMessages?.map(message=>(<Card style={{overflow: 'initial'}}>
+            {userMessages?.map((message, index)=>(<Card key={index} style={{overflow: 'initial'}}>
               <Typography variant='body1'>{message.content}</Typography>
             </Card>))}
           </TabPanel>
