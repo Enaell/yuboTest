@@ -1,11 +1,18 @@
 export type UserType = {
-    id?: string,
+    id?: number,
     token?: string,
     city?: string,
     country?: string,
     username: string,
     name?: string,
     isDeleted?: boolean
+}
+
+export type MessageType = {
+    content: string;
+    id: number;
+    receiverId: number;
+    senderId: number;
 }
 
 export type HorizontalType= 'center' | 'start' | 'end' | 'stretch' | 'baseline';

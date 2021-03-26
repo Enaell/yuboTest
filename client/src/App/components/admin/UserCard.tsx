@@ -1,15 +1,17 @@
 import { Card, TextField, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
-import { UserType } from '../common/types';
+import { MessageType, UserType } from '../common/types';
 import translate from 'counterpart';
 import { DualSwitch } from '../common/GenericComponents';
 
 type UserCardProps = {
-  user?: UserType
+  user?: UserType;
+  userMessages?: MessageType[]
+  receivedMessages?: MessageType[]
 }
 
-export const UserCard = ({user}: UserCardProps) => {
+export const UserCard = ({user, userMessages}: UserCardProps) => {
 
 
   return (
@@ -72,6 +74,12 @@ export const UserCard = ({user}: UserCardProps) => {
             disabled
           />
         </Row>
+        <Column height='600px' style={{overflow: 'auto'}}>
+          <Typography variant='body1'>Messages</Typography>
+            {userMessages?.map(message=>(<Card style={{overflow: 'initial'}}>
+              <Typography variant='body1'>{message.content}</Typography>
+            </Card>))}
+        </Column>
       </Column>
     </Card>
   )

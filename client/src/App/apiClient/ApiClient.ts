@@ -19,11 +19,7 @@ export const userApi = {
     return json as UserType[]
   },
   updateUser: async (user: UserType, token?: string) => {
-    console.log('api client gift update gift');
-    console.log(user);
     try {
-      if (!user.name)
-       return {success: false, message: 'gift has no name'};
       const res = await fetch(`http://localhost:5000/api/user/${user.id}`,{
         headers: {
           'Authorization': `Token ${token}`,
@@ -36,11 +32,50 @@ export const userApi = {
         })
       });
       const json = await res.json();
-      return {success: true, message: json};
+      return json as UserType;
     } catch (error) {
       console.log(error);
-      return {success: false, message: error.message}
+      return {} as UserType;
     }
   },
+  getAllMessages: async (id?: number, token?: string) => {
+    if (!id)
+      return
+    const getUserUrl = `http://localhost:5000/api/users/${id}/messages`
+    const res = await fetch(getUserUrl,
+    {
+      headers: token ? {
+      'Authorization': `Token ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    } : {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+      method:"GET"
+    })
+    const json = await res.json();
+    return json as any;
+  },
+  getAllReceivedMessages: async (id?: number, token?: string) => {
+    if (!id)
+      return
+    const getUserUrl = `http://localhost:5000/api/users/${id}/messagereceived`
+    const res = await fetch(getUserUrl,
+    {
+      headers: token ? {
+      'Authorization': `Token ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    } : {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+      method:"GET"
+    })
+    const json = await res.json();
+    return json as any;
+  },
+
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { userApi } from "../../apiClient/ApiClient";
-import { UserType } from "../common/types";
+import { MessageType, UserType } from "../common/types";
 
 
 export function useUserList() {
@@ -55,7 +55,14 @@ export function useUserSelected() {
 
   const [userSelected, setUserSelected] = useState(undefined as UserType | undefined);
 
-  
+  const [userMessages, setUserMessages] = useState(undefined as MessageType[] | undefined);
+  const [receivedMessages, setReceivedMessages] = useState(undefined as MessageType[] | undefined);
 
-  return {userSelected, setUserSelected}
+
+  useEffect(()=> {
+    userApi.getAllMessages(userSelected?.id).then(ms => setUserMessages(ms));
+    userApi.getAllReceivedMessages(userSelected?.id).then(rms => setReceivedMessages(rms))
+  }, [userSelected])
+
+  return {userSelected, setUserSelected, userMessages, receivedMessages}
 }
