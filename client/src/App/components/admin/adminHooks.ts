@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { userApi } from "../../apiClient/ApiClient";
-import { MessageType, UserType } from "../common/types";
+import { MediaType, MessageType, UserType } from "../common/types";
 
 
 export function useUserList() {
@@ -58,14 +58,13 @@ export function useUserSelected() {
   const [userMessages, setUserMessages] = useState(undefined as MessageType[] | undefined);
   const [receivedMessages, setReceivedMessages] = useState(undefined as MessageType[] | undefined);
 
-  useEffect(()=> {
-    console.log(receivedMessages);
-  }, [receivedMessages])
+  const [medias, setMedias] =useState(undefined as MediaType[] | undefined);
 
   useEffect(()=> {
     userApi.getAllMessages(userSelected?.id).then(ms => setUserMessages(ms));
-    userApi.getAllReceivedMessages(userSelected?.id).then(rms => setReceivedMessages(rms))
+    userApi.getAllReceivedMessages(userSelected?.id).then(rms => setReceivedMessages(rms));
+    userApi.getAllMedia(userSelected?.id).then(m=>setMedias(m))
   }, [userSelected])
 
-  return {userSelected, setUserSelected, userMessages, receivedMessages}
+  return {userSelected, setUserSelected, userMessages, receivedMessages, medias}
 }

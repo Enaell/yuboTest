@@ -15,6 +15,13 @@ export type MessageType = {
     senderId: number;
 }
 
+export type MediaType = {
+    id: number;
+    order: string;
+    url: string;
+    userId: number
+}
+
 export type HorizontalType= 'center' | 'start' | 'end' | 'stretch' | 'baseline';
 
 export type VariantType= 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2' | 'body1' | 'body2' | 'caption' | 'button' | 'overline' | 'srOnly' | 'inherit';

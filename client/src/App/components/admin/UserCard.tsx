@@ -1,7 +1,7 @@
-import { AppBar, Card, Tab, Tabs, TextField, Typography } from '@material-ui/core';
+import { AppBar, Card, CardMedia, Tab, Tabs, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
-import { MessageType, UserType } from '../common/types';
+import { MediaType, MessageType, UserType } from '../common/types';
 import translate from 'counterpart';
 import { DualSwitch } from '../common/GenericComponents';
 
@@ -38,10 +38,11 @@ function a11yProps(index: any) {
 type UserCardProps = {
   user?: UserType;
   userMessages?: MessageType[]
-  receivedMessages?: MessageType[]
+  receivedMessages?: MessageType[];
+  medias?: MediaType[];
 }
 
-export const UserCard = ({user, userMessages, receivedMessages}: UserCardProps) => {
+export const UserCard = ({user, userMessages, receivedMessages, medias}: UserCardProps) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -113,6 +114,7 @@ export const UserCard = ({user, userMessages, receivedMessages}: UserCardProps) 
           <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Messages" {...a11yProps(0)} />
             <Tab label="Messages Received" {...a11yProps(1)} />
+            <Tab label="Media" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
@@ -125,12 +127,13 @@ export const UserCard = ({user, userMessages, receivedMessages}: UserCardProps) 
               <Typography variant='body1'>{message.content}</Typography>
             </Card>))}
           </TabPanel>
+          <TabPanel value={value} index={2}> 
+            <Row width='100%' horizontal='space-around'>
+              {medias?.map(media=>(<CardMedia style={{marginTop: '20px', paddingTop: '150px', width: '150px' }} image={media.url}/>))}
+            </Row>
+          </TabPanel>
         </Column>
       </Column>
     </Card>
   )
-}
-
-function userEffect(arg0: () => void, arg1: (MessageType[] | undefined)[]) {
-  throw new Error('Function not implemented.');
 }

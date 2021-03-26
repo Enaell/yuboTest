@@ -40,8 +40,25 @@ export const userApi = {
   },
   getAllMessages: async (id?: number, token?: string) => {
     if (!id)
-      return
+      return [] as any;
     const getUserUrl = `http://localhost:5000/api/users/${id}/messages`
+    const res = await fetch(getUserUrl,
+    {
+      headers: token ? {
+      'Authorization': `Token ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    } : {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+      method:"GET"
+    })
+    const json = await res.json();
+    return json as any;
+  },
+  getAllMedia: async (id?: number, token?: string) => {
+    const getUserUrl = `http://localhost:5000/api/users/${id}/media`
     const res = await fetch(getUserUrl,
     {
       headers: token ? {

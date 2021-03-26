@@ -36,7 +36,7 @@ export const WelcomeSection = () => {
     setUsernameError(nError);
 
     // if (!(pError || nError)) {
-      const loggedUser = await userApi.getAllMessages(1);
+      const loggedUser = await userApi.getAllMedia();
       console.log(loggedUser)
       // if (loggedUser.success)
       //   dispatch({type: 'LOGIN', payload: loggedUser.message});

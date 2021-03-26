@@ -9,14 +9,14 @@ import {UserTable} from './UserTable';
 export const AdminPanel = ({...props}) => {
     
   const {users, filter, setFilter} = useUserList(); 
-  const {userSelected, userMessages, receivedMessages, setUserSelected} = useUserSelected();
+  const {userSelected, userMessages, receivedMessages, medias, setUserSelected} = useUserSelected();
   
   return (
     <Row style={{paddingTop: '90px'}} height='calc(100vh - 120px)' width='90%' horizontal='space-around' vertical='center'>
       <UserTable users={users} getUserSelected={setUserSelected} />
       <Column width='40%'>
         <Filter filter={filter} setFilter={setFilter}/>
-        <UserCard user={userSelected} receivedMessages={receivedMessages} userMessages={userMessages}/>
+        <UserCard user={userSelected} receivedMessages={receivedMessages} userMessages={userMessages} medias={medias}/>
       </Column>
     </Row>
   )
