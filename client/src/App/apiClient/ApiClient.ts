@@ -18,17 +18,20 @@ export const userApi = {
     const json = await res.json();
     return json as UserType[]
   },
-  updateUser: async (user: UserType, token?: string) => {
+  updateUserAvaliability: async (user: UserType, token?: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/user/${user.id}`,{
-        headers: {
-          'Authorization': `Token ${token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+      const res = await fetch(`http://localhost:5000/api/users/${user.id}/availability`,{
+        headers: token ? {
+        'Authorization': `Token ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      } : {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
         method:"PATCH",
         body: JSON.stringify({
-          user
+          isDeleted: !user.isDeleted
         })
       });
       const json = await res.json();

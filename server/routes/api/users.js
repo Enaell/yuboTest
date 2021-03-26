@@ -12,12 +12,9 @@ router.get('/', async function (req, res) {
     if (err) {
       console.log(err)
     } else {
-      console.log('pass here')
       if (rows.length === 0) {
         res.send('Empty database')
       } else {
-        console.log('rows : ')
-        console.log(rows)
         rows.forEach(function (row) {
           output.push(row);
         })
@@ -28,15 +25,12 @@ router.get('/', async function (req, res) {
 
 router.get('/:id/messages', async function (req, res) {
   const userId = req.params.id;
-  console.log('-----------------------------------');
-  console.log(userId);
   if (userId)
   {    db.all(`SELECT * FROM messages WHERE senderId=${userId}`, function (err, rows) {
     var output = []
     if (err) {
       console.log(err)
     } else {
-      console.log('pass here')
       if (rows.length === 0) {
         res.send('Empty database')
       } else {
@@ -58,12 +52,9 @@ router.get('/:id/messagereceived', async function (req, res) {
       if (err) {
         console.log(err)
       } else {
-        console.log('pass here')
         if (rows.length === 0) {
           res.send('Empty database')
         } else {
-          console.log('rows : ')
-          console.log(rows)
           rows.forEach(function (row) {
             output.push(row);
           })
@@ -83,12 +74,9 @@ router.get('/:id/media', async function (req, res) {
       if (err) {
         console.log(err)
       } else {
-        console.log('pass here')
         if (rows.length === 0) {
           res.send('Empty database')
         } else {
-          console.log('rows : ')
-          console.log(rows)
           rows.forEach(function (row) {
             output.push(row);
           })
@@ -100,19 +88,35 @@ router.get('/:id/media', async function (req, res) {
 })
       
 
-router.patch('/', async (req, res, next) => {
-  const { payload, body: updates} = req;
+router.patch('/:id/availability', async (req, res, next) => {
+  const { payload, body: isDeleted} = req;
 
-  delete updates.username;
+  const userId = req.params.id;
 
-  try {
-    const user = undefined;
-    return res.json({ user });
-  }
-  catch( error ){
-    console.log(error);
-    return res.status(500).json({ error });
-  }
+  db.all(`UPDATE users SET isDeleted=${isDeleted.isDeleted ? 1 : 0} WHERE id=${userId}`, function (err, rows) {
+    var output = []
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('pass here')
+      if (rows.length === 0) {
+        res.send('Empty database')
+      } else {
+        console.log('rows : ')
+        console.log(rows)
+        rows.forEach(function (row) {
+          output.push(row);
+        })
+        res.json(output)
+      }
+    } 
+  })
+
+
+  //  const stmt = db.prepare(`UPDATE users SET isDeleted = 1 WHERE id = ${userId}`); 
+  //  const updates = stmt.run({isDeleted: isDeleted.isDeleted ? 1 : 0}, {id: userId});
+  //  stmt.finalize();
+
 });
 
 

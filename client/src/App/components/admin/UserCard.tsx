@@ -4,6 +4,7 @@ import { Column, Row } from '../common/Flexbox';
 import { MediaType, MessageType, UserType } from '../common/types';
 import translate from 'counterpart';
 import { DualSwitch } from '../common/GenericComponents';
+import { userApi } from "../../apiClient/ApiClient";
 
 
 interface TabPanelProps {
@@ -49,6 +50,7 @@ export const UserCard = ({user, userMessages, receivedMessages, medias}: UserCar
     setValue(newValue);
   };
 
+
   return (
     <Card style={{width: '90', margin: '20px'}}>
       <Column width='100%'>
@@ -63,7 +65,15 @@ export const UserCard = ({user, userMessages, receivedMessages, medias}: UserCar
             }}
             disabled
           />
-          <DualSwitch check={!user?.isDeleted} values={['disable', 'able']} changeSelectedValue={(s: string)=> console.log(s)}/>
+          <DualSwitch 
+            check={!user?.isDeleted} 
+            values={['disable', 'able']} 
+            changeSelectedValue={(s: string )=> {
+                console.log(s)
+                if (user)
+                  {userApi.updateUserAvaliability(user)}
+            }
+            }/>
         </Row>
         <Row width='100%' horizontal='space-around'>
           <TextField

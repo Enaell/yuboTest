@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Column, Row } from './Flexbox';
 import {Typography, Switch, InputBase} from '@material-ui/core';
 import translate from 'counterpart';
@@ -77,6 +77,8 @@ export const DualSwitch =  ({
     changeSelectedValue
   }: { check?: boolean, values: string[], changeSelectedValue: (s : string) => void }) => {
 
+
+  useEffect(()=>{setChecked(check)}, [check]);
   const [checked, setChecked] = React.useState(check);
 
   const handleChange = (event : any) => {
