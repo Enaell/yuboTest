@@ -40,8 +40,6 @@ router.get('/', async function (req, res) {
         if (rows.length === 0) {
           res.send('Empty database')
         } else {
-          console.log('rows : ')
-          console.log(rows)
           rows.forEach(function (row) {
             output.push(row);
           })

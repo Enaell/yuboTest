@@ -58,6 +58,9 @@ export function useUserSelected() {
   const [userMessages, setUserMessages] = useState(undefined as MessageType[] | undefined);
   const [receivedMessages, setReceivedMessages] = useState(undefined as MessageType[] | undefined);
 
+  useEffect(()=> {
+    console.log(receivedMessages);
+  }, [receivedMessages])
 
   useEffect(()=> {
     userApi.getAllMessages(userSelected?.id).then(ms => setUserMessages(ms));
